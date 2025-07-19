@@ -320,7 +320,7 @@ function buyNow() {
     // 현재 페이지 경로에 따라 checkout.html 경로 결정
     const currentPath = window.location.pathname;
     let checkoutPath = 'checkout.html';
-    
+
     // products 폴더 하위에 있는 경우 (2단계 위로)
     if (currentPath.includes('/products/')) {
         checkoutPath = '../../checkout.html';
@@ -329,7 +329,7 @@ function buyNow() {
     else if (currentPath.includes('/categories/')) {
         checkoutPath = '../checkout.html';
     }
-    
+
     window.location.href = `${checkoutPath}?${params.toString()}`;
 }
 
