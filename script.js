@@ -246,6 +246,31 @@ function initializeAddToCart() {
     });
 }
 
+// 상품 이미지 경로 생성 공통 함수
+function getProductImagePath() {
+    // 현재 페이지 URL에서 파일명 추출
+    const currentPath = window.location.pathname;
+    const fileName = currentPath.split('/').pop().replace('.html', '');
+    
+    // 카테고리별 이미지 경로 생성
+    if (currentPath.includes('/products/beauty/')) {
+        return `assets/beauty/${fileName}.jpg`;
+    } else if (currentPath.includes('/products/electronics/')) {
+        return `assets/electronics/${fileName}.jpg`;
+    } else if (currentPath.includes('/products/fashion/')) {
+        return `assets/fashion/${fileName}.jpg`;
+    } else if (currentPath.includes('/products/sports/')) {
+        return `assets/sports/${fileName}.jpg`;
+    } else if (currentPath.includes('/products/home-living/')) {
+        return `assets/home-living/${fileName}.jpg`;
+    } else {
+        // 기존 방식으로 폴백
+        return document.querySelector('.product-image img')?.src || 
+               document.querySelector('.product-images img')?.src || 
+               'assets/placeholder.svg';
+    }
+}
+
 // 장바구니에 상품 추가
 function addToCart() {
     const productName = document.querySelector('.product-info-detail h1')?.textContent || '상품';
@@ -254,31 +279,8 @@ function addToCart() {
     const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color') || 'default';
     const selectedSize = document.querySelector('.size-select')?.value || 'M';
     
-    // 상품 이미지 정보 추가 - 페이지명 기반으로 이미지 경로 생성
-    let productImage = 'assets/placeholder.svg';
-    
-    // 현재 페이지 URL에서 파일명 추출
-    const currentPath = window.location.pathname;
-    const fileName = currentPath.split('/').pop().replace('.html', '');
-    
-    // 카테고리별 이미지 경로 생성
-    if (currentPath.includes('/products/beauty/')) {
-        productImage = `assets/beauty/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/electronics/')) {
-        productImage = `assets/electronics/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/fashion/')) {
-        productImage = `assets/fashion/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/sports/')) {
-        productImage = `assets/sports/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/home-living/')) {
-        productImage = `assets/home-living/${fileName}.jpg`;
-    } else {
-        // 기존 방식으로 폴백
-        productImage = document.querySelector('.product-image img')?.src || 
-                      document.querySelector('.product-images img')?.src || 
-                      document.querySelector('img[alt*="' + productName + '"]')?.src ||
-                      'assets/placeholder.svg';
-    }
+    // 상품 이미지 정보 추가
+    const productImage = getProductImagePath();
 
     const cartItem = {
         id: Date.now(),
@@ -330,31 +332,9 @@ function buyNow() {
     const productName = document.querySelector('.product-info-detail h1')?.textContent || '상품';
     const productPrice = document.querySelector('.current-price')?.textContent || '₩0';
     const quantity = parseInt(document.querySelector('.product-info-detail .qty-input')?.value || 1);
-    // 상품 이미지 정보 추가 - 페이지명 기반으로 이미지 경로 생성 (addToCart와 동일한 로직)
-    let productImage = 'assets/placeholder.svg';
     
-    // 현재 페이지 URL에서 파일명 추출
-    const currentPath = window.location.pathname;
-    const fileName = currentPath.split('/').pop().replace('.html', '');
-    
-    // 카테고리별 이미지 경로 생성
-    if (currentPath.includes('/products/beauty/')) {
-        productImage = `assets/beauty/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/electronics/')) {
-        productImage = `assets/electronics/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/fashion/')) {
-        productImage = `assets/fashion/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/sports/')) {
-        productImage = `assets/sports/${fileName}.jpg`;
-    } else if (currentPath.includes('/products/home-living/')) {
-        productImage = `assets/home-living/${fileName}.jpg`;
-    } else {
-        // 기존 방식으로 폴백
-        productImage = document.querySelector('.product-image img')?.src || 
-                      document.querySelector('.product-images img')?.src || 
-                      document.querySelector('img[alt*="' + productName + '"]')?.src ||
-                      'assets/placeholder.svg';
-    }
+    // 상품 이미지 정보 추가 - 공통 함수 사용
+    const productImage = getProductImagePath();
 
     // 가격에서 숫자만 추출
     const priceNumber = parseInt(productPrice.replace(/[^\d]/g, ''));
