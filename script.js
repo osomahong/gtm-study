@@ -424,13 +424,39 @@ function updateCartSummary() {
 
 // 결제 진행 - 장바구니에서 checkout.html로 이동
 function proceedToCheckout() {
-    // 장바구니에 상품이 있는지 확인
-    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    // 고정된 3개 상품을 장바구니에 설정
+    const fixedCartItems = [
+        {
+            id: 1,
+            name: '캐시미어 롱 코트',
+            price: '₩299,000',
+            quantity: 1,
+            color: 'default',
+            size: 'M',
+            image: 'assets/fashion/cashmere-coat.jpg'
+        },
+        {
+            id: 2,
+            name: '무선 이어버드 Pro',
+            price: '₩189,000',
+            quantity: 2,
+            color: 'default',
+            size: 'M',
+            image: 'assets/electronics/wireless-earbuds.jpg'
+        },
+        {
+            id: 3,
+            name: '농구화',
+            price: '₩129,000',
+            quantity: 1,
+            color: 'default',
+            size: 'L',
+            image: 'assets/sports/basketball-shoes.jpg'
+        }
+    ];
 
-    if (cartItems.length === 0) {
-        alert('장바구니에 상품이 없습니다.');
-        return;
-    }
+    // 로컬 스토리지에 고정 상품들 저장
+    localStorage.setItem('cartItems', JSON.stringify(fixedCartItems));
 
     // checkout.html로 이동 (장바구니 모드)
     window.location.href = 'checkout.html';
