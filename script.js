@@ -253,6 +253,12 @@ function addToCart() {
     const quantity = parseInt(document.querySelector('.product-info-detail .qty-input')?.value || 1);
     const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color') || 'default';
     const selectedSize = document.querySelector('.size-select')?.value || 'M';
+    
+    // 상품 이미지 정보 추가
+    const productImage = document.querySelector('.product-image img')?.src || 
+                        document.querySelector('.product-images img')?.src || 
+                        document.querySelector('img[alt*="' + productName + '"]')?.src ||
+                        'assets/placeholder.svg';
 
     const cartItem = {
         id: Date.now(),
@@ -260,7 +266,8 @@ function addToCart() {
         price: productPrice,
         quantity: quantity,
         color: selectedColor,
-        size: selectedSize
+        size: selectedSize,
+        image: productImage
     };
 
     cartItems.push(cartItem);
@@ -303,7 +310,11 @@ function buyNow() {
     const productName = document.querySelector('.product-info-detail h1')?.textContent || '상품';
     const productPrice = document.querySelector('.current-price')?.textContent || '₩0';
     const quantity = parseInt(document.querySelector('.product-info-detail .qty-input')?.value || 1);
-    const productImage = document.querySelector('.product-image img')?.src || 'assets/placeholder.jpg';
+    // 상품 이미지 정보 추가 (addToCart와 동일한 로직)
+    const productImage = document.querySelector('.product-image img')?.src || 
+                        document.querySelector('.product-images img')?.src || 
+                        document.querySelector('img[alt*="' + productName + '"]')?.src ||
+                        'assets/placeholder.svg';
 
     // 가격에서 숫자만 추출
     const priceNumber = parseInt(productPrice.replace(/[^\d]/g, ''));
