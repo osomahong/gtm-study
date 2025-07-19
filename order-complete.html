@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문완료 - CatShop</title>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TCR235VR');</script>
+    <!-- End Google Tag Manager -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-gray-50">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCR235VR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- 헤더 -->
+    <header class="header bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="header-top flex items-center justify-between py-4">
+                <div class="logo">
+                    <h1><a href="index.html" class="text-2xl font-bold text-primary-600">CatShop</a></h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-600 hover:text-primary-600">홈으로</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 진행 단계 표시 -->
+    <div class="bg-white border-b">
+        <div class="max-w-4xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-center space-x-8">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">✓</div>
+                    <span class="ml-2 text-sm font-medium text-primary-600">장바구니</span>
+                </div>
+                <div class="w-16 h-0.5 bg-primary-600"></div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">✓</div>
+                    <span class="ml-2 text-sm font-medium text-primary-600">결제정보</span>
+                </div>
+                <div class="w-16 h-0.5 bg-primary-600"></div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">✓</div>
+                    <span class="ml-2 text-sm font-medium text-primary-600">주문완료</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- 주문 완료 메시지 -->
+        <div class="text-center mb-12">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">주문이 완료되었습니다!</h1>
+            <p class="text-lg text-gray-600 mb-2">주문해 주셔서 감사합니다.</p>
+            <p class="text-sm text-gray-500">주문 확인 및 배송 안내는 문자메시지로 발송됩니다.</p>
+        </div>
+
+        <!-- 주문 정보 -->
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 주문 번호 및 날짜 -->
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">주문 정보</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">주문번호</span>
+                            <span id="orderNumber" class="font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">주문일시</span>
+                            <span id="orderDate" class="font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">결제방법</span>
+                            <span id="paymentMethod" class="font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold text-primary-600">
+                            <span>총 결제금액</span>
+                            <span id="totalAmount">₩0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 배송 정보 -->
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">배송 정보</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">받는 분</span>
+                            <span id="recipientName" class="font-medium">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">연락처</span>
+                            <span id="recipientPhone" class="font-medium">-</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">배송주소</span>
+                            <p id="deliveryAddress" class="font-medium mt-1 text-sm">-</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">배송상태</span>
+                            <span class="font-medium text-blue-600">주문접수</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 주문 상품 목록 -->
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">주문 상품</h2>
+            <div id="orderItemsList" class="space-y-4">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </div>
+
+        <!-- 배송 안내 -->
+        <div class="bg-blue-50 rounded-lg p-6 mb-8">
+            <h3 class="text-lg font-bold text-blue-900 mb-3">📦 배송 안내</h3>
+            <ul class="text-sm text-blue-800 space-y-2">
+                <li>• 주문 확인 후 1-2일 내에 배송이 시작됩니다.</li>
+                <li>• 배송 시작 시 문자메시지로 송장번호를 안내해드립니다.</li>
+                <li>• 일반 배송은 2-3일, 제주/도서산간 지역은 3-5일 소요됩니다.</li>
+                <li>• 배송 관련 문의는 고객센터(1588-0000)로 연락해주세요.</li>
+            </ul>
+        </div>
+
+        <!-- 액션 버튼들 -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onclick="window.location.href='index.html'" class="px-8 py-3 bg-primary-600 text-white rounded-lg font-bold hover:bg-primary-700 transition-colors">
+                쇼핑 계속하기
+            </button>
+            <button onclick="viewOrderHistory()" class="px-8 py-3 bg-gray-600 text-white rounded-lg font-bold hover:bg-gray-700 transition-colors">
+                주문내역 확인
+            </button>
+        </div>
+
+        <!-- 추천 상품 섹션 -->
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold text-center text-gray-900 mb-8">이런 상품은 어떠세요?</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 추천 상품 카드들 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='products/electronics/wireless-earbuds.html'">
+                    <div class="h-48 bg-gray-200">
+                        <img src="assets/electronics/wireless-earbuds.jpg" alt="무선 이어버드" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900 mb-2">무선 이어버드 Pro</h3>
+                        <p class="text-lg font-bold text-primary-600">₩189,000</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='products/fashion/cashmere-coat.html'">
+                    <div class="h-48 bg-gray-200">
+                        <img src="assets/fashion/cashmere-coat.jpg" alt="캐시미어 코트" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900 mb-2">캐시미어 롱 코트</h3>
+                        <p class="text-lg font-bold text-primary-600">₩299,000</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='products/beauty/vitamin-serum.html'">
+                    <div class="h-48 bg-gray-200">
+                        <img src="assets/beauty/vitamin-serum.jpg" alt="비타민C 세럼" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900 mb-2">비타민C 세럼</h3>
+                        <p class="text-lg font-bold text-primary-600">₩45,000</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onclick="window.location.href='products/sports/running-shoes.html'">
+                    <div class="h-48 bg-gray-200">
+                        <img src="assets/sports/running-shoes.jpg" alt="러닝화" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-gray-900 mb-2">에어 러닝화</h3>
+                        <p class="text-lg font-bold text-primary-600">₩89,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-gray-400">&copy; 2024 CatShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 페이지 로드 시 주문 정보 표시
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderInfo();
+        });
+
+        function loadOrderInfo() {
+            // URL에서 주문번호 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            
+            // 로컬 스토리지에서 주문 정보 가져오기
+            const orderData = JSON.parse(localStorage.getItem('lastOrder') || '{}');
+            
+            if (orderData.orderId) {
+                // 주문 정보 표시
+                document.getElementById('orderNumber').textContent = orderData.orderId;
+                document.getElementById('orderDate').textContent = new Date(orderData.orderDate).toLocaleString('ko-KR');
+                document.getElementById('paymentMethod').textContent = getPaymentMethodName(orderData.paymentMethod);
+                document.getElementById('totalAmount').textContent = `₩${orderData.total.toLocaleString()}`;
+                
+                // 배송 정보 표시
+                if (orderData.recipient) {
+                    document.getElementById('recipientName').textContent = orderData.recipient.name;
+                    document.getElementById('recipientPhone').textContent = orderData.recipient.phone;
+                    document.getElementById('deliveryAddress').textContent = orderData.recipient.address;
+                }
+                
+                // 주문 상품 목록 표시
+                displayOrderItems(orderData.items);
+            }
+        }
+
+        function getPaymentMethodName(method) {
+            const methods = {
+                'card': '신용카드',
+                'bank': '무통장입금',
+                'kakao': '카카오페이'
+            };
+            return methods[method] || '신용카드';
+        }
+
+        function displayOrderItems(items) {
+            const container = document.getElementById('orderItemsList');
+            container.innerHTML = '';
+            
+            items.forEach(item => {
+                const itemPrice = typeof item.price === 'string' ? 
+                    parseInt(item.price.replace(/[^\d]/g, '')) : item.price;
+                const itemTotal = itemPrice * item.quantity;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex items-center space-x-4 p-4 border border-gray-200 rounded-lg';
+                itemElement.innerHTML = `
+                    <img src="${item.image || 'assets/placeholder.jpg'}" alt="${item.name}" class="w-20 h-20 object-cover rounded-md">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-gray-900">${item.name}</h4>
+                        <p class="text-sm text-gray-500">수량: ${item.quantity}개</p>
+                        <p class="text-lg font-bold text-primary-600">₩${itemTotal.toLocaleString()}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">주문접수</span>
+                    </div>
+                `;
+                container.appendChild(itemElement);
+            });
+        }
+
+        function viewOrderHistory() {
+            // 실제로는 주문내역 페이지로 이동
+            alert('주문내역 페이지로 이동합니다.\n(데모 버전에서는 구현되지 않았습니다)');
+        }
+
+        // 페이지 로드 애니메이션
+        document.addEventListener('DOMContentLoaded', function() {
+            // 성공 아이콘 애니메이션
+            const successIcon = document.querySelector('.text-green-600');
+            if (successIcon) {
+                successIcon.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    successIcon.style.transition = 'transform 0.5s ease-out';
+                    successIcon.style.transform = 'scale(1)';
+                }, 300);
+            }
+            
+            // 축하 효과 (간단한 컨페티 효과)
+            createConfetti();
+        });
+
+        function createConfetti() {
+            const colors = ['#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.cssText = `
+                        position: fixed;
+                        top: -10px;
+                        left: ${Math.random() * 100}%;
+                        width: 10px;
+                        height: 10px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        z-index: 1000;
+                        pointer-events: none;
+                        animation: confetti-fall 3s linear forwards;
+                    `;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confetti-fall {
+                0% {
+                    transform: translateY(-100vh) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

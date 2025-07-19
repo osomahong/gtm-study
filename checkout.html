@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제하기 - CatShop</title>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TCR235VR');</script>
+    <!-- End Google Tag Manager -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-gray-50">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCR235VR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- 헤더 -->
+    <header class="header bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="header-top flex items-center justify-between py-4">
+                <div class="logo">
+                    <h1><a href="index.html" class="text-2xl font-bold text-primary-600">CatShop</a></h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="cart.html" class="text-gray-600 hover:text-primary-600">장바구니</a>
+                    <a href="index.html" class="text-gray-600 hover:text-primary-600">홈으로</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 진행 단계 표시 -->
+    <div class="bg-white border-b">
+        <div class="max-w-4xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-center space-x-8">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                    <span class="ml-2 text-sm font-medium text-primary-600">장바구니</span>
+                </div>
+                <div class="w-16 h-0.5 bg-primary-600"></div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                    <span class="ml-2 text-sm font-medium text-primary-600">결제정보</span>
+                </div>
+                <div class="w-16 h-0.5 bg-gray-300"></div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-300 text-gray-500 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                    <span class="ml-2 text-sm font-medium text-gray-500">주문완료</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 왼쪽: 결제 정보 입력 -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- 배송 정보 -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">배송 정보</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">받는 분</label>
+                            <input type="text" id="recipientName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="홍길동">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">연락처</label>
+                            <input type="tel" id="recipientPhone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="010-1234-5678">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">주소</label>
+                            <div class="space-y-2">
+                                <div class="flex space-x-2">
+                                    <input type="text" id="zipCode" class="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="우편번호" readonly>
+                                    <button type="button" onclick="searchAddress()" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">주소검색</button>
+                                </div>
+                                <input type="text" id="address" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="기본주소" readonly>
+                                <input type="text" id="detailAddress" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="상세주소">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">배송 요청사항</label>
+                            <select id="deliveryRequest" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option value="">선택해주세요</option>
+                                <option value="door">문 앞에 놓아주세요</option>
+                                <option value="security">경비실에 맡겨주세요</option>
+                                <option value="call">배송 전 연락주세요</option>
+                                <option value="custom">직접 입력</option>
+                            </select>
+                            <input type="text" id="customRequest" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 mt-2 hidden" placeholder="요청사항을 입력해주세요">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 결제 방법 -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">결제 방법</h2>
+                    <div class="space-y-4">
+                        <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="paymentMethod" value="card" class="mr-3" checked>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    💳
+                                </div>
+                                <span class="font-medium">신용카드</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="paymentMethod" value="bank" class="mr-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    🏦
+                                </div>
+                                <span class="font-medium">무통장입금</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="paymentMethod" value="kakao" class="mr-3">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                                    💰
+                                </div>
+                                <span class="font-medium">카카오페이</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 할인 쿠폰 -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">할인 쿠폰</h2>
+                    <div class="flex space-x-2">
+                        <input type="text" id="couponCode" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="쿠폰 코드를 입력하세요">
+                        <button type="button" onclick="applyCoupon()" class="px-6 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">적용</button>
+                    </div>
+                    <div id="couponMessage" class="mt-2 text-sm hidden"></div>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 주문 요약 -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm p-6 sticky top-4">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">주문 요약</h2>
+                    
+                    <!-- 주문 상품 목록 -->
+                    <div id="orderItems" class="space-y-4 mb-6">
+                        <!-- JavaScript로 동적 생성 -->
+                    </div>
+
+                    <!-- 가격 요약 -->
+                    <div class="border-t pt-4 space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span>상품 금액</span>
+                            <span id="subtotal">₩0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>배송비</span>
+                            <span id="shippingFee">₩3,000</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-green-600">
+                            <span>할인</span>
+                            <span id="discount">-₩0</span>
+                        </div>
+                        <div class="border-t pt-3">
+                            <div class="flex justify-between text-lg font-bold">
+                                <span>총 결제 금액</span>
+                                <span id="totalAmount" class="text-primary-600">₩0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 결제 버튼 -->
+                    <button onclick="processPayment()" class="w-full mt-6 bg-primary-600 text-white py-3 rounded-lg font-bold hover:bg-primary-700 transition-colors">
+                        결제하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-gray-400">&copy; 2024 CatShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 체크아웃 페이지 전용 스크립트
+        let checkoutData = {
+            items: [],
+            subtotal: 0,
+            shippingFee: 3000,
+            discount: 0,
+            total: 0
+        };
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCheckoutData();
+            setupEventListeners();
+        });
+
+        // 체크아웃 데이터 로드
+        function loadCheckoutData() {
+            // URL 파라미터에서 상품 정보 가져오기 (바로구매의 경우)
+            const urlParams = new URLSearchParams(window.location.search);
+            const directBuy = urlParams.get('direct');
+            
+            if (directBuy === 'true') {
+                // 바로구매 상품 정보
+                const productData = {
+                    name: urlParams.get('name') || '상품',
+                    price: parseInt(urlParams.get('price')) || 0,
+                    quantity: parseInt(urlParams.get('quantity')) || 1,
+                    image: urlParams.get('image') || 'assets/placeholder.jpg'
+                };
+                checkoutData.items = [productData];
+            } else {
+                // 장바구니에서 온 경우
+                const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+                checkoutData.items = cartItems;
+            }
+
+            updateOrderSummary();
+        }
+
+        // 주문 요약 업데이트
+        function updateOrderSummary() {
+            const orderItemsContainer = document.getElementById('orderItems');
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingFeeElement = document.getElementById('shippingFee');
+            const discountElement = document.getElementById('discount');
+            const totalAmountElement = document.getElementById('totalAmount');
+
+            // 주문 상품 목록 생성
+            orderItemsContainer.innerHTML = '';
+            checkoutData.subtotal = 0;
+
+            checkoutData.items.forEach(item => {
+                const itemPrice = typeof item.price === 'string' ? 
+                    parseInt(item.price.replace(/[^\d]/g, '')) : item.price;
+                const itemTotal = itemPrice * item.quantity;
+                checkoutData.subtotal += itemTotal;
+
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex items-center space-x-3 p-3 border border-gray-200 rounded-lg';
+                itemElement.innerHTML = `
+                    <img src="${item.image || 'assets/placeholder.jpg'}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-sm">${item.name}</h4>
+                        <p class="text-xs text-gray-500">수량: ${item.quantity}개</p>
+                        <p class="text-sm font-bold text-primary-600">₩${itemTotal.toLocaleString()}</p>
+                    </div>
+                `;
+                orderItemsContainer.appendChild(itemElement);
+            });
+
+            // 무료배송 조건 (5만원 이상)
+            if (checkoutData.subtotal >= 50000) {
+                checkoutData.shippingFee = 0;
+            }
+
+            // 총 금액 계산
+            checkoutData.total = checkoutData.subtotal + checkoutData.shippingFee - checkoutData.discount;
+
+            // UI 업데이트
+            subtotalElement.textContent = `₩${checkoutData.subtotal.toLocaleString()}`;
+            shippingFeeElement.textContent = checkoutData.shippingFee === 0 ? '무료' : `₩${checkoutData.shippingFee.toLocaleString()}`;
+            discountElement.textContent = `-₩${checkoutData.discount.toLocaleString()}`;
+            totalAmountElement.textContent = `₩${checkoutData.total.toLocaleString()}`;
+        }
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            // 배송 요청사항 선택
+            document.getElementById('deliveryRequest').addEventListener('change', function() {
+                const customInput = document.getElementById('customRequest');
+                if (this.value === 'custom') {
+                    customInput.classList.remove('hidden');
+                } else {
+                    customInput.classList.add('hidden');
+                }
+            });
+        }
+
+        // 주소 검색 (데모용)
+        function searchAddress() {
+            // 실제로는 다음 우편번호 API 등을 사용
+            document.getElementById('zipCode').value = '12345';
+            document.getElementById('address').value = '서울시 강남구 테헤란로 123';
+            document.getElementById('detailAddress').focus();
+        }
+
+        // 쿠폰 적용
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value.trim();
+            const messageElement = document.getElementById('couponMessage');
+            
+            if (!couponCode) {
+                showCouponMessage('쿠폰 코드를 입력해주세요.', 'error');
+                return;
+            }
+
+            // 데모용 쿠폰 코드들
+            const validCoupons = {
+                'WELCOME10': { discount: 0.1, type: 'percent', name: '신규가입 10% 할인' },
+                'SAVE5000': { discount: 5000, type: 'amount', name: '5천원 할인' },
+                'FREESHIP': { discount: 3000, type: 'shipping', name: '무료배송' }
+            };
+
+            if (validCoupons[couponCode]) {
+                const coupon = validCoupons[couponCode];
+                
+                if (coupon.type === 'percent') {
+                    checkoutData.discount = Math.floor(checkoutData.subtotal * coupon.discount);
+                } else if (coupon.type === 'amount') {
+                    checkoutData.discount = coupon.discount;
+                } else if (coupon.type === 'shipping') {
+                    checkoutData.shippingFee = 0;
+                }
+                
+                updateOrderSummary();
+                showCouponMessage(`${coupon.name} 쿠폰이 적용되었습니다.`, 'success');
+                document.getElementById('couponCode').value = '';
+            } else {
+                showCouponMessage('유효하지 않은 쿠폰 코드입니다.', 'error');
+            }
+        }
+
+        // 쿠폰 메시지 표시
+        function showCouponMessage(message, type) {
+            const messageElement = document.getElementById('couponMessage');
+            messageElement.textContent = message;
+            messageElement.className = `mt-2 text-sm ${type === 'success' ? 'text-green-600' : 'text-red-600'}`;
+            messageElement.classList.remove('hidden');
+            
+            setTimeout(() => {
+                messageElement.classList.add('hidden');
+            }, 3000);
+        }
+
+        // 결제 처리
+        function processPayment() {
+            // 필수 정보 검증
+            const requiredFields = [
+                { id: 'recipientName', name: '받는 분' },
+                { id: 'recipientPhone', name: '연락처' },
+                { id: 'zipCode', name: '주소' }
+            ];
+
+            for (let field of requiredFields) {
+                const element = document.getElementById(field.id);
+                if (!element.value.trim()) {
+                    alert(`${field.name}을(를) 입력해주세요.`);
+                    element.focus();
+                    return;
+                }
+            }
+
+            // 결제 방법 확인
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+            
+            // 로딩 표시
+            showPaymentLoading();
+            
+            // 결제 처리 시뮬레이션
+            setTimeout(() => {
+                hidePaymentLoading();
+                
+                // 주문 정보 저장
+                const orderData = {
+                    orderId: 'ORD' + Date.now(),
+                    items: checkoutData.items,
+                    total: checkoutData.total,
+                    paymentMethod: paymentMethod,
+                    orderDate: new Date().toISOString(),
+                    recipient: {
+                        name: document.getElementById('recipientName').value,
+                        phone: document.getElementById('recipientPhone').value,
+                        address: document.getElementById('address').value + ' ' + document.getElementById('detailAddress').value
+                    }
+                };
+                
+                localStorage.setItem('lastOrder', JSON.stringify(orderData));
+                
+                // 장바구니 비우기
+                localStorage.removeItem('cartItems');
+                
+                // 주문 완료 페이지로 이동
+                window.location.href = `order-complete.html?orderId=${orderData.orderId}`;
+                
+            }, 2000);
+        }
+
+        // 결제 로딩 표시
+        function showPaymentLoading() {
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.id = 'paymentLoading';
+            loadingOverlay.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 10000;
+                    color: white;
+                    font-size: 18px;
+                    flex-direction: column;
+                    gap: 20px;
+                ">
+                    <div>결제 처리 중...</div>
+                    <div style="
+                        width: 50px;
+                        height: 50px;
+                        border: 3px solid #333;
+                        border-top: 3px solid #6366f1;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                    "></div>
+                </div>
+            `;
+            document.body.appendChild(loadingOverlay);
+        }
+
+        // 결제 로딩 숨기기
+        function hidePaymentLoading() {
+            const loadingOverlay = document.getElementById('paymentLoading');
+            if (loadingOverlay) {
+                loadingOverlay.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>

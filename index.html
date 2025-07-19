@@ -786,13 +786,13 @@
       const prevBtn = document.querySelector('.banner-prev');
       const nextBtn = document.querySelector('.banner-next');
       const bannerContainer = document.querySelector('section[class*="relative h-96"]');
-      
+
       // 필수 요소들이 존재하지 않으면 함수 종료
       if (!slides.length || !dots.length || !prevBtn || !nextBtn || !bannerContainer) {
         console.warn('Banner slider elements not found');
         return;
       }
-      
+
       let currentSlide = 0;
       let slideInterval;
 

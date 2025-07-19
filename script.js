@@ -121,7 +121,6 @@ function initializeViewToggle() {
     
     // 1초 후에 실행하여 모든 요소가 렌더링되기를 기다림
     setTimeout(() => {
-        console.log('=== View Toggle Initialization ===');
         
         // 이벤트 위임 방식 사용 - document에 이벤트 리스너 추가
         document.addEventListener('click', function(e) {
@@ -130,12 +129,10 @@ function initializeViewToggle() {
             
             // 메인페이지에서는 작동하지 않도록 체크
             if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-                console.log('View toggle disabled on main page');
                 return;
             }
             
             e.preventDefault();
-            console.log('View button clicked via delegation:', e.target.className);
             
             // 그리드 요소 찾기 - 더 포괄적인 방법 사용
             let productsGrid = null;
@@ -235,7 +232,6 @@ function initializeViewToggle() {
             console.log('=== View switch complete ===');
         });
         
-        console.log('View toggle event delegation set up');
     }, 1000);
 }
 
@@ -304,10 +300,24 @@ function showAddToCartMessage() {
 
 // 바로 구매 기능
 function buyNow() {
-    addToCart();
-    setTimeout(() => {
-        window.location.href = 'cart.html';
-    }, 500);
+    const productName = document.querySelector('.product-info-detail h1')?.textContent || '상품';
+    const productPrice = document.querySelector('.current-price')?.textContent || '₩0';
+    const quantity = parseInt(document.querySelector('.product-info-detail .qty-input')?.value || 1);
+    const productImage = document.querySelector('.product-image img')?.src || 'assets/placeholder.jpg';
+    
+    // 가격에서 숫자만 추출
+    const priceNumber = parseInt(productPrice.replace(/[^\d]/g, ''));
+    
+    // 바로구매 정보를 URL 파라미터로 전달
+    const params = new URLSearchParams({
+        direct: 'true',
+        name: productName,
+        price: priceNumber,
+        quantity: quantity,
+        image: productImage
+    });
+    
+    window.location.href = `checkout.html?${params.toString()}`;
 }
 
 // 장바구니 아이템 제거
@@ -368,47 +378,18 @@ function updateCartSummary() {
     });
 }
 
-// 결제 진행
+// 결제 진행 - 장바구니에서 checkout.html로 이동
 function proceedToCheckout() {
-    // 가상의 결제 처리
-    const loadingMessage = document.createElement('div');
-    loadingMessage.className = 'checkout-loading';
-    loadingMessage.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            color: white;
-            font-size: 18px;
-            flex-direction: column;
-            gap: 20px;
-        ">
-            <div>결제 처리 중...</div>
-            <div style="
-                width: 50px;
-                height: 50px;
-                border: 3px solid #333;
-                border-top: 3px solid #e74c3c;
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-            "></div>
-        </div>
-    `;
+    // 장바구니에 상품이 있는지 확인
+    const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
     
-    document.body.appendChild(loadingMessage);
+    if (cartItems.length === 0) {
+        alert('장바구니에 상품이 없습니다.');
+        return;
+    }
     
-    // 2초 후 결제 완료 메시지
-    setTimeout(() => {
-        loadingMessage.remove();
-        showPaymentSuccess();
-    }, 2000);
+    // checkout.html로 이동 (장바구니 모드)
+    window.location.href = 'checkout.html';
 }
 
 // 결제 완료 메시지
@@ -476,7 +457,6 @@ function performSearch() {
         
         window.location.href = `${searchPath}?q=${encodeURIComponent(searchTerm)}`;
 
-        dataLayer.push({event:'search',search_term:'searchTerm'});
     }
 }
 
