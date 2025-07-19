@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니 - CatShop</title>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TCR235VR');</script>
+    <!-- End Google Tag Manager -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="index.html">CatShop</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="상품을 검색하세요">
+                    <button>검색</button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="login-btn">로그인</a>
+                    <a href="cart.html" class="cart-btn active">장바구니 <span class="cart-count">3</span></a>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="categories/all-categories.html">전체카테고리</a></li>
+                    <li><a href="categories/fashion.html">패션</a></li>
+                    <li><a href="categories/electronics.html">전자제품</a></li>
+                    <li><a href="categories/home-living.html">홈&리빙</a></li>
+                    <li><a href="categories/beauty.html">뷰티</a></li>
+                    <li><a href="categories/sports.html">스포츠</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 브레드크럼 -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">홈</a> > <span>장바구니</span>
+        </div>
+    </div>
+
+    <!-- 장바구니 메인 -->
+    <main class="cart-main">
+        <div class="container">
+            <h1 class="page-title">장바구니</h1>
+
+            <div class="cart-content">
+                <div class="cart-items">
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="assets/fashion/cashmere-coat.jpg" alt="캐시미어 롱 코트">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3>캐시미어 롱 코트</h3>
+                            <p>색상: 베이지 / 사이즈: M</p>
+                        </div>
+                        <div class="cart-item-price">₩299,000</div>
+                        <div class="cart-item-quantity">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="cart-item-remove">×</button>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="assets/electronics/wireless-earbuds.jpg" alt="무선 이어버드 Pro">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3>무선 이어버드 Pro</h3>
+                            <p>색상: 화이트 / 보증기간: 1년 기본보증</p>
+                        </div>
+                        <div class="cart-item-price">₩189,000</div>
+                        <div class="cart-item-quantity">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="cart-item-remove">×</button>
+                    </div>
+
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="assets/sports/basketball-shoes.jpg" alt="농구화">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3>농구화</h3>
+                            <p>색상: 레드 / 사이즈: 260mm</p>
+                        </div>
+                        <div class="cart-item-price">₩159,000</div>
+                        <div class="cart-item-quantity">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="cart-item-remove">×</button>
+                    </div>
+                </div>
+
+                <div class="cart-summary">
+                    <h2>주문 요약</h2>
+
+                    <div class="summary-row">
+                        <span>상품 금액</span>
+                        <span>₩317,000</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>배송비</span>
+                        <span>무료</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>할인</span>
+                        <span class="discount">-₩20,000</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>총 결제 금액</span>
+                        <span>₩297,000</span>
+                    </div>
+
+                    <button class="checkout-btn" onclick="proceedToCheckout()">결제하기</button>
+
+                    <div class="payment-methods">
+                        <h3>결제 수단</h3>
+                        <div class="payment-icons">
+                            <span class="payment-icon">💳</span>
+                            <span class="payment-icon">🏦</span>
+                            <span class="payment-icon">📱</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 추천 상품 -->
+            <section class="recommended-products">
+                <h2 class="section-title">함께 구매하면 좋은 상품</h2>
+                <div class="product-grid">
+                    <div class="product-card" onclick="location.href='products/fashion/cashmere-coat.html'">
+                        <div class="product-image">
+                            <img src="assets/fashion/cashmere-coat.jpg" alt="캐시미어 롱 코트">
+                        </div>
+                        <div class="product-info">
+                            <h3>캐시미어 롱 코트</h3>
+                            <p class="price">₩299,000</p>
+                        </div>
+                    </div>
+                    <div class="product-card" onclick="location.href='products/electronics/wireless-earbuds.html'">
+                        <div class="product-image">
+                            <img src="assets/electronics/wireless-earbuds.jpg" alt="무선 이어버드 Pro">
+                        </div>
+                        <div class="product-info">
+                            <h3>무선 이어버드 Pro</h3>
+                            <p class="price">₩189,000</p>
+                        </div>
+                    </div>
+                    <div class="product-card" onclick="location.href='products/beauty/vitamin-serum.html'">
+                        <div class="product-image">
+                            <img src="assets/beauty/vitamin-serum.jpg" alt="비타민C 세럼">
+                        </div>
+                        <div class="product-info">
+                            <h3>비타민C 세럼</h3>
+                            <p class="price">₩45,000</p>
+                        </div>
+                    </div>
+                    <div class="product-card" onclick="location.href='products/sports/running-shoes.html'">
+                        <div class="product-image">
+                            <img src="assets/sports/running-shoes.jpg" alt="에어 러닝화">
+                        </div>
+                        <div class="product-info">
+                            <h3>에어 러닝화</h3>
+                            <p class="price">₩89,000</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>고객센터</h4>
+                    <p>1588-0000</p>
+                    <p>평일 09:00-18:00</p>
+                </div>
+                <div class="footer-section">
+                    <h4>회사정보</h4>
+                    <p>CatShop Inc.</p>
+                    <p>서울시 강남구</p>
+                </div>
+                <div class="footer-section">
+                    <h4>이용약관</h4>
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CatShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

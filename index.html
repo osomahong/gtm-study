@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatShop - 전자상거래 쇼핑몰</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TCR235VR');</script>
+  <!-- End Google Tag Manager -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Noto Sans KR', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#eff6ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            secondary: {
+              500: '#8b5cf6',
+              600: '#7c3aed',
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.6s ease-out',
+            'scale-in': 'scaleIn 0.6s ease-out',
+            'gradient': 'gradient 8s ease infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.9)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            },
+            gradient: {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header">
+    <div class="container">
+      <div class="header-top">
+        <div class="logo">
+          <h1><a href="index.html">CatShop</a></h1>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="상품을 검색하세요">
+          <button>검색</button>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="login-btn">로그인</a>
+          <a href="cart.html" class="cart-btn">장바구니 <span class="cart-count">0</span></a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="categories/all-categories.html">전체카테고리</a></li>
+          <li><a href="categories/fashion.html">패션</a></li>
+          <li><a href="categories/electronics.html">전자제품</a></li>
+          <li><a href="categories/home-living.html">홈&리빙</a></li>
+          <li><a href="categories/beauty.html">뷰티</a></li>
+          <li><a href="categories/sports.html">스포츠</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 메인 배너 -->
+  <section class="relative h-96 bg-gradient-to-br from-primary-500 via-primary-600 to-secondary-500 overflow-hidden">
+    <!-- 배경 패턴 -->
+    <div class="absolute inset-0 bg-black/10"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-gradient bg-[length:200%_200%]">
+    </div>
+
+    <!-- 슬라이드 배너 -->
+    <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+      <!-- 슬라이드 1: 패션 -->
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 1; visibility: visible; z-index: 1;" data-tag-index="1" data-tag-title="여름 패션 컬렉션" class="banner-slide active">
+        <div style="position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer;" onclick="window.location.href='categories/fashion.html'">
+          <div style="display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1200px; height: 100%; padding: 0 20px;">
+            <!-- 이미지 영역 -->
+            <div style="width: 50%; height: 300px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); margin: 0 10px;">
+              <img src="assets/main/summer-banner.jpg" alt="여름 패션 컬렉션" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            
+            <!-- 텍스트 영역 -->
+            <div style="width: 50%; height: 300px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); margin: 0 10px; display: flex; flex-direction: column; justify-content: center;">
+              <span class="inline-block px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-full mb-4" style="width: fit-content;">✨ NEW</span>
+              <h2 class="text-4xl font-bold text-white mb-4">여름 패션 컬렉션</h2>
+              <p class="text-lg text-white/90 mb-6">트렌디한 여름 아이템, 캐시미어, 실크, 데님까지 만나보세요</p>
+              <a href="categories/fashion.html" onclick="event.stopPropagation();"
+                class="inline-block px-6 py-3 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300 shadow-xl" style="width: fit-content;">
+                지금 쇼핑하기
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 슬라이드 2: 전자제품 -->
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; z-index: 0;" data-tag-index="2" data-tag-title="전자제품 특가 세일" class="banner-slide">
+        <div style="position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer;" onclick="window.location.href='categories/electronics.html'">
+          <div style="display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1200px; height: 100%; padding: 0 20px;">
+            <!-- 이미지 영역 -->
+            <div style="width: 50%; height: 300px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); margin: 0 10px;">
+              <img src="assets/main/electronic-banner.jpg" alt="전자제품 특가 세일" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            
+            <!-- 텍스트 영역 -->
+            <div style="width: 50%; height: 300px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); margin: 0 10px; display: flex; flex-direction: column; justify-content: center;">
+              <span class="inline-block px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full mb-4 animate-pulse" style="width: fit-content;">🔥 HOT DEAL</span>
+              <h2 class="text-4xl font-bold text-white mb-4">전자제품 특가 세일</h2>
+              <p class="text-lg text-white/90 mb-6">최신 스마트폰, 태블릿, 이어버드까지 최대 40% 할인 혜택으로 만나보세요</p>
+              <a href="categories/electronics.html" onclick="event.stopPropagation();"
+                class="inline-block px-6 py-3 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300 shadow-xl" style="width: fit-content;">
+                지금 쇼핑하기
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 슬라이드 3: 홈&리빙 -->
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; z-index: 0;" data-tag-index="3" data-tag-title="홈&리빙 특가" class="banner-slide">
+        <div style="position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: pointer;" onclick="window.location.href='categories/home-living.html'">
+          <div style="display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1200px; height: 100%; padding: 0 20px;">
+            <!-- 이미지 영역 -->
+            <div style="width: 50%; height: 300px; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); margin: 0 10px;">
+              <img src="assets/main/home-living.jpg" alt="홈&리빙 특가" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            
+            <!-- 텍스트 영역 -->
+            <div style="width: 50%; height: 300px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); margin: 0 10px; display: flex; flex-direction: column; justify-content: center;">
+              <span class="inline-block px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-full mb-4" style="width: fit-content;">💎 LIMITED</span>
+              <h2 class="text-4xl font-bold text-white mb-4">홈&리빙 특가</h2>
+              <p class="text-lg text-white/90 mb-6">인테리어 소품부터 가구까지 우리집을 더 특별하게 만들어보세요</p>
+              <a href="categories/home-living.html" onclick="event.stopPropagation();"
+                class="inline-block px-6 py-3 bg-white text-primary-600 font-bold rounded-xl hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300 shadow-xl" style="width: fit-content;">
+                지금 쇼핑하기
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 슬라이드 컨트롤 -->
+      <div style="position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; z-index: 20;">
+        <button style="width: 12px; height: 12px; border-radius: 50%; background: white; border: none; cursor: pointer; transition: all 0.3s ease; transform: scale(1.2);" class="banner-dot active" data-slide="1"></button>
+        <button style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.5); border: none; cursor: pointer; transition: all 0.3s ease;" class="banner-dot" data-slide="2"></button>
+        <button style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.5); border: none; cursor: pointer; transition: all 0.3s ease;" class="banner-dot" data-slide="3"></button>
+      </div>
+
+      <!-- 좌우 화살표 -->
+      <button style="position: absolute; top: 50%; left: 20px; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 0, 0, 0.3); border: none; cursor: pointer; transition: all 0.3s ease; z-index: 20;" class="banner-arrow banner-prev">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 0, 0, 0.3); border: none; cursor: pointer; transition: all 0.3s ease; z-index: 20;" class="banner-arrow banner-next">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- 인기 상품 -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent mb-4">
+          인기 상품
+        </h2>
+        <div class="w-20 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 캐시미어 코트 -->
+        <div class="group cursor-pointer" onclick="location.href='products/fashion/cashmere-coat.html'">
+          <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <!-- 상품 이미지 -->
+            <div class="relative h-56 overflow-hidden">
+              <img src="assets/fashion/cashmere-coat.jpg" alt="캐시미어 롱 코트" class="w-full h-full object-cover">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+
+            <!-- 장바구니 버튼 -->
+            <div class="px-3 py-1.5 border-b border-gray-100">
+              <button
+                class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                  </path>
+                </svg>
+                <span class="text-xs font-medium">담기</span>
+              </button>
+            </div>
+
+            <!-- 상품 정보 -->
+            <div class="p-4 h-30">
+              <h3 class="text-sm font-medium text-gray-900 mb-2 line-clamp-2">캐시미어 롱 코트</h3>
+              <div class="space-y-1">
+                <div class="text-sm text-gray-400 line-through">₩399,000</div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-sm font-bold text-orange-500">25%</span>
+                  <span class="text-lg font-bold text-gray-900">₩299,000</span>
+                </div>
+                <div class="flex items-center text-xs text-gray-500">
+                  <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                  <span>4.8 (234)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 무선 이어버드 -->
+        <div class="group cursor-pointer" onclick="location.href='products/electronics/wireless-earbuds.html'">
+          <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <!-- 상품 이미지 -->
+            <div class="relative h-56 overflow-hidden">
+              <img src="assets/electronics/wireless-earbuds.jpg" alt="무선 이어버드 Pro" class="w-full h-full object-cover">
+              <div class="absolute top-3 left-3">
+                <span class="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded">BEST</span>
+              </div>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+
+            <!-- 장바구니 버튼 -->
+            <div class="px-3 py-1.5 border-b border-gray-100">
+              <button
+                class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                  </path>
+                </svg>
+                <span class="text-xs font-medium">담기</span>
+              </button>
+            </div>
+
+            <!-- 상품 정보 -->
+            <div class="p-4 h-30">
+              <h3 class="text-sm font-medium text-gray-900 mb-2 line-clamp-2">무선 이어버드 Pro</h3>
+              <div class="space-y-1">
+                <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-gray-900">₩189,000</span>
+                </div>
+                <div class="flex items-center text-xs text-gray-500">
+                  <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                  <span>4.9 (1,234)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 비타민C 세럼 -->
+        <div class="group cursor-pointer" onclick="location.href='products/beauty/vitamin-serum.html'">
+          <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <!-- 상품 이미지 -->
+            <div class="relative h-56 overflow-hidden">
+              <img src="assets/beauty/vitamin-serum.jpg" alt="비타민C 세럼" class="w-full h-full object-cover">
+              <div class="absolute top-3 left-3">
+                <span class="px-2 py-1 bg-emerald-500 text-white text-xs font-bold rounded">NEW</span>
+              </div>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+
+            <!-- 장바구니 버튼 -->
+            <div class="px-3 py-1.5 border-b border-gray-100">
+              <button
+                class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                  </path>
+                </svg>
+                <span class="text-xs font-medium">담기</span>
+              </button>
+            </div>
+
+            <!-- 상품 정보 -->
+            <div class="p-4 h-30">
+              <h3 class="text-sm font-medium text-gray-900 mb-2 line-clamp-2">비타민C 세럼</h3>
+              <div class="space-y-1">
+                <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-gray-900">₩45,000</span>
+                </div>
+                <div class="flex items-center text-xs text-gray-500">
+                  <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                  <span>4.6 (89)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 에어 러닝화 -->
+        <div class="group cursor-pointer" onclick="location.href='products/sports/running-shoes.html'">
+          <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <!-- 상품 이미지 -->
+            <div class="relative h-56 overflow-hidden">
+              <img src="assets/sports/running-shoes.jpg" alt="에어 러닝화" class="w-full h-full object-cover">
+              <div class="absolute top-3 left-3">
+                <span class="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">SALE</span>
+              </div>
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+
+            <!-- 장바구니 버튼 -->
+            <div class="px-3 py-1.5 border-b border-gray-100">
+              <button
+                class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                  </path>
+                </svg>
+                <span class="text-xs font-medium">담기</span>
+              </button>
+            </div>
+
+            <!-- 상품 정보 -->
+            <div class="p-4 h-30">
+              <h3 class="text-sm font-medium text-gray-900 mb-2 line-clamp-2">에어 러닝화</h3>
+              <div class="space-y-1">
+                <div class="text-sm text-gray-400 line-through">₩129,000</div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-sm font-bold text-orange-500">31%</span>
+                  <span class="text-lg font-bold text-gray-900">₩89,000</span>
+                </div>
+                <div class="flex items-center text-xs text-gray-500">
+                  <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                  <span>4.2 (567)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 일일 특가 섹션 -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+          <!-- 왼쪽: 타이머 섹션 -->
+          <div class="p-8 bg-gradient-to-br from-purple-50 to-indigo-50 flex flex-col justify-center">
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">✨ 일일특가</h3>
+              <div class="flex items-center justify-center space-x-1 mb-6">
+                <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                <span class="text-3xl font-bold text-purple-600" id="timer-display">10:16:30</span>
+              </div>
+              <p class="text-sm text-gray-600 mb-4">마감임박 놓치지마세요</p>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 상품 섹션 -->
+          <div class="p-8 flex flex-col justify-center">
+            <div class="cursor-pointer group" onclick="location.href='products/beauty/vitamin-serum.html'">
+              <!-- 상품 이미지 영역 -->
+              <div
+                class="w-full h-48 rounded-xl mb-4 relative overflow-hidden group-hover:shadow-lg transition-all duration-300">
+                <img src="assets/beauty/sunscreen.jpg" alt="선크림" class="w-full h-full object-cover">
+                <div class="absolute top-3 left-3">
+                  <span class="bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full">할인가</span>
+                </div>
+                <div class="absolute bottom-3 left-3">
+                  <span class="bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">장보기 특가</span>
+                </div>
+              </div>
+
+              <!-- 상품 정보 -->
+              <div class="space-y-2">
+                <p class="text-sm text-gray-500">🐬 바다를 닮은 촉촉한 자외선 차단제 💦</p>
+                <h4 class="text-lg text-gray-900 group-hover:text-purple-600 transition-colors">
+                  선크림 SPF50+
+                </h4>
+                <div class="flex items-center space-x-2">
+                  <span class="text-sm text-orange-500 font-bold">29%</span>
+                  <span class="text-xl font-bold text-gray-900">25,000원</span>
+                  <span class="text-sm text-gray-400 line-through">35,000원</span>
+                </div>
+                <div class="flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                  </svg>
+                  <span>479+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 프로모션 섹션 -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 패션 카드 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/fashion.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-500 overflow-hidden relative">
+            <!-- 신상품 배지 -->
+            <div class="absolute top-4 right-4 z-10">
+              <div
+                class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                ✨ NEW
+              </div>
+            </div>
+            <div class="h-40 relative overflow-hidden">
+              <img src="assets/main/summer-banner.jpg" alt="여름 패션 컬렉션" class="w-full h-full object-cover">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-2">
+                <span class="text-xs text-emerald-500 font-medium uppercase tracking-wide">프로모션</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">여름 패션 컬렉션
+              </h3>
+              <p class="text-gray-600 text-sm mb-4">트렌디한 여름 아이템<br>캐시미어, 실크, 데님까지 만나보세요</p>
+              <span class="inline-flex items-center text-primary-600 font-semibold group-hover:text-primary-700">
+                보러가기
+                <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 전자제품 카드 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/electronics.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-500 overflow-hidden relative">
+            <!-- 특별 배지 -->
+            <div class="absolute top-4 right-4 z-10">
+              <div
+                class="bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+                🔥 HOT DEAL
+              </div>
+            </div>
+            <div class="h-40 relative overflow-hidden">
+              <img src="assets/main/electronic-banner.jpg" alt="전자제품 할인" class="w-full h-full object-cover">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-2">
+                <span class="text-xs text-orange-500 font-medium uppercase tracking-wide">프로모션</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">전자제품 특가 세일
+              </h3>
+              <p class="text-gray-600 text-sm mb-4">최신 스마트폰, 태블릿, 이어버드까지<br>최대 40% 할인 혜택으로 만나보세요</p>
+              <span class="inline-flex items-center text-primary-600 font-semibold group-hover:text-primary-700">
+                보러가기
+                <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 홈데코 카드 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/home-living.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-500 overflow-hidden relative">
+            <!-- 한정 특가 배지 -->
+            <div class="absolute top-4 right-4 z-10">
+              <div
+                class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                💎 LIMITED
+              </div>
+            </div>
+            <div class="h-40 relative overflow-hidden">
+              <img src="assets/main/home-living.jpg" alt="홈데코 특가" class="w-full h-full object-cover">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-2">
+                <span class="text-xs text-purple-500 font-medium uppercase tracking-wide">프로모션</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">홈&리빙 특가
+              </h3>
+              <p class="text-gray-600 text-sm mb-4">인테리어 소품부터 가구까지<br>우리집을 더 특별하게 만들어보세요</p>
+              <span class="inline-flex items-center text-primary-600 font-semibold group-hover:text-primary-700">
+                보러가기
+                <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 카테고리 섹션 -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2
+          class="text-4xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent mb-4">
+          카테고리별 쇼핑
+        </h2>
+        <div class="w-20 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 패션 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/fashion.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-4 hover:scale-105 transition-all duration-500 overflow-hidden">
+            <div class="h-40 bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-500 relative overflow-hidden">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+              <!-- 아이콘 -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-12 h-12 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5H9a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">패션</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- 전자제품 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/electronics.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-4 hover:scale-105 transition-all duration-500 overflow-hidden">
+            <div class="h-40 bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-500 relative overflow-hidden">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+              <!-- 아이콘 -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-12 h-12 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">전자제품</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- 홈&리빙 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/home-living.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-4 hover:scale-105 transition-all duration-500 overflow-hidden">
+            <div class="h-40 bg-gradient-to-br from-green-400 via-teal-500 to-blue-500 relative overflow-hidden">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+              <!-- 아이콘 -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-12 h-12 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">홈&리빙</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- 뷰티 -->
+        <div class="group cursor-pointer" onclick="location.href='categories/beauty.html'">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-4 hover:scale-105 transition-all duration-500 overflow-hidden">
+            <div class="h-40 bg-gradient-to-br from-rose-400 via-pink-500 to-purple-500 relative overflow-hidden">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+              </div>
+              <!-- 아이콘 -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-12 h-12 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">뷰티</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="space-y-4">
+          <h4
+            class="text-xl font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+            고객센터</h4>
+          <div class="space-y-2">
+            <p class="text-2xl font-bold text-white">1588-0000</p>
+            <p class="text-gray-400">평일 09:00-18:00</p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h4
+            class="text-xl text-white font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+            회사정보</h4>
+          <div class="space-y-2">
+            <p class="text-gray-400 font-medium">CatShop Inc.</p>
+            <p class="text-gray-400">서울시 강남구</p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h4
+            class="text-xl text-white font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+            이용약관</h4>
+          <div class="space-y-2">
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors duration-300">개인정보처리방침</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors duration-300">이용약관</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+        <p class="text-gray-400">&copy; 2024 CatShop. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // 검색 기능 구현
+    document.addEventListener('DOMContentLoaded', function() {
+      // 검색 버튼 클릭 시 검색 실행
+      document.querySelector('.search-bar button').addEventListener('click', function() {
+        const searchInput = document.querySelector('.search-bar input').value.trim();
+        if (searchInput) {
+          window.location.href = `search.html?q=${encodeURIComponent(searchInput)}`;
+        }
+      });
+
+      // 엔터키 검색 기능
+      document.querySelector('.search-bar input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const searchInput = this.value.trim();
+          if (searchInput) {
+            window.location.href = `search.html?q=${encodeURIComponent(searchInput)}`;
+          }
+        }
+      });
+
+      // 배너 슬라이드 기능
+      initBannerSlider();
+    });
+
+    // 배너 슬라이더 초기화 함수
+    function initBannerSlider() {
+      const slides = document.querySelectorAll('.banner-slide');
+      const dots = document.querySelectorAll('.banner-dot');
+      const prevBtn = document.querySelector('.banner-prev');
+      const nextBtn = document.querySelector('.banner-next');
+      let currentSlide = 0;
+      let slideInterval;
+
+      // 모든 슬라이드 숨기기
+      slides.forEach(slide => {
+        slide.style.opacity = '0';
+        slide.style.visibility = 'hidden';
+      });
+
+      // 첫 번째 슬라이드만 표시
+      slides[0].style.opacity = '1';
+      slides[0].style.visibility = 'visible';
+      slides[0].classList.add('active');
+      dots[0].classList.add('active');
+
+      // 슬라이드 표시 함수
+      function showSlide(index) {
+        // 현재 활성화된 슬라이드와 도트 비활성화
+        slides.forEach(slide => {
+          slide.style.opacity = '0';
+          slide.style.visibility = 'hidden';
+          slide.classList.remove('active');
+        });
+        
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // 새 슬라이드와 도트 활성화
+        slides[index].style.opacity = '1';
+        slides[index].style.visibility = 'visible';
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        // 현재 슬라이드 인덱스 업데이트
+        currentSlide = index;
+      }
+
+      // 다음 슬라이드로 이동
+      function nextSlide() {
+        let next = currentSlide + 1;
+        if (next >= slides.length) next = 0;
+        showSlide(next);
+      }
+
+      // 이전 슬라이드로 이동
+      function prevSlide() {
+        let prev = currentSlide - 1;
+        if (prev < 0) prev = slides.length - 1;
+        showSlide(prev);
+      }
+
+      // 자동 슬라이드 시작
+      function startSlideInterval() {
+        slideInterval = setInterval(nextSlide, 5000); // 5초마다 슬라이드 변경
+      }
+
+      // 자동 슬라이드 정지
+      function stopSlideInterval() {
+        clearInterval(slideInterval);
+      }
+
+      // 이벤트 리스너 설정
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          stopSlideInterval();
+          showSlide(index);
+          startSlideInterval();
+        });
+      });
+
+      prevBtn.addEventListener('click', () => {
+        stopSlideInterval();
+        prevSlide();
+        startSlideInterval();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        stopSlideInterval();
+        nextSlide();
+        startSlideInterval();
+      });
+
+      // 슬라이드에 마우스 올리면 자동 슬라이드 정지
+      document.querySelector('.banner-slider').addEventListener('mouseenter', stopSlideInterval);
+      document.querySelector('.banner-slider').addEventListener('mouseleave', startSlideInterval);
+
+      // 슬라이드 클릭 시 해당 페이지로 이동
+      slides.forEach(slide => {
+        slide.addEventListener('click', function(e) {
+          // 버튼이나 컨트롤 클릭 시에는 이동하지 않음
+          if (e.target.closest('.banner-controls') || e.target.closest('.banner-arrow') || e.target.closest('a')) {
+            return;
+          }
+          
+          // 슬라이드 인덱스에 따라 다른 페이지로 이동
+          const index = parseInt(this.getAttribute('data-tag-index'));
+          switch(index) {
+            case 1:
+              window.location.href = 'categories/fashion.html';
+              break;
+            case 2:
+              window.location.href = 'categories/electronics.html';
+              break;
+            case 3:
+              window.location.href = 'categories/home-living.html';
+              break;
+          }
+        });
+      });
+
+      // 자동 슬라이드 시작
+      startSlideInterval();
+    }
+  </script>
+</body>
+
+</html>

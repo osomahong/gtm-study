@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전자제품 - CatShop</title>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TCR235VR');</script>
+    <!-- End Google Tag Manager -->
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Noto Sans KR', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="../index.html">CatShop</a></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="상품을 검색하세요">
+                    <button id="searchButton">검색</button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="login-btn">로그인</a>
+                    <a href="../cart.html" class="cart-btn">장바구니 <span class="cart-count">0</span></a>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="all-categories.html">전체카테고리</a></li>
+                    <li><a href="fashion.html">패션</a></li>
+                    <li><a href="electronics.html" class="active">전자제품</a></li>
+                    <li><a href="home-living.html">홈&리빙</a></li>
+                    <li><a href="beauty.html">뷰티</a></li>
+                    <li><a href="sports.html">스포츠</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 브레드크럼 -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="../index.html">홈</a> > <span>전자제품</span>
+        </div>
+    </div>
+
+    <!-- 카테고리 메인 -->
+    <main class="category-main">
+        <div class="container">
+            <div class="category-layout">
+                <!-- 사이드바 필터 -->
+                <aside class="category-sidebar">
+                    <div class="filter-section">
+                        <h3>하위 카테고리</h3>
+                        <ul class="category-list">
+                            <li><a href="electronics.html" class="active">전체</a></li>
+                            <li><a href="electronics.html">스마트폰 <span>(45)</span></a></li>
+                            <li><a href="electronics.html">노트북 <span>(32)</span></a></li>
+                            <li><a href="electronics.html">태블릿 <span>(28)</span></a></li>
+                            <li><a href="electronics.html">이어폰 <span>(67)</span></a></li>
+                            <li><a href="electronics.html">액세서리 <span>(89)</span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>가격대</h3>
+                        <div class="price-filter">
+                            <label><input type="checkbox"> 10만원 미만</label>
+                            <label><input type="checkbox"> 10만원 - 50만원</label>
+                            <label><input type="checkbox"> 50만원 - 100만원</label>
+                            <label><input type="checkbox"> 100만원 이상</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>브랜드</h3>
+                        <div class="brand-filter">
+                            <label><input type="checkbox"> 테크브랜드 A</label>
+                            <label><input type="checkbox"> 테크브랜드 B</label>
+                            <label><input type="checkbox"> 테크브랜드 C</label>
+                            <label><input type="checkbox"> 테크브랜드 D</label>
+                        </div>
+                    </div>
+
+                    <button class="filter-reset">필터 초기화</button>
+                </aside>
+
+                <!-- 상품 목록 -->
+                <div class="category-content">
+                    <div class="category-header">
+                        <h1>전자제품</h1>
+                        <p class="result-count">총 <strong>261</strong>개의 상품</p>
+                    </div>
+
+                    <div class="sort-options">
+                        <select class="sort-select">
+                            <option>인기순</option>
+                            <option>최신순</option>
+                            <option>낮은 가격순</option>
+                            <option>높은 가격순</option>
+                            <option>평점순</option>
+                        </select>
+
+                        <div class="view-options">
+                            <button class="view-btn grid-view active">⊞</button>
+                            <button class="view-btn list-view">☰</button>
+                        </div>
+                    </div>
+
+                    <!-- 상품 그리드 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="group cursor-pointer"
+                            onclick="location.href='../products/electronics/wireless-earbuds.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/wireless-earbuds.jpg" alt="무선 이어버드 Pro"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded">BEST</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">무선 이어버드 Pro</h3>
+                                    <div class="space-y-0">
+                                        <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-lg font-bold text-gray-900">₩189,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.8 (1,234)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer"
+                            onclick="location.href='../products/electronics/smartphone.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/smartphone.jpg" alt="스마트폰 12 Pro"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">SALE</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">스마트폰 12 Pro</h3>
+                                    <div class="space-y-0">
+                                        <div class="text-sm text-gray-400 line-through">₩1,350,000</div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-sm font-bold text-orange-500">11%</span>
+                                            <span class="text-lg font-bold text-gray-900">₩1,200,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.5 (532)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer" onclick="location.href='../products/electronics/tablet.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/tablet.jpg" alt="태블릿 Air"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-emerald-500 text-white text-xs font-bold rounded">NEW</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">태블릿 Air</h3>
+                                    <div class="space-y-0">
+                                        <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-lg font-bold text-gray-900">₩650,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.3 (378)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer"
+                            onclick="location.href='../products/electronics/smartphone.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/smartwatch.jpg" alt="스마트워치 Series 8"
+                                        class="w-full h-full object-cover">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">스마트워치 Series 8</h3>
+                                    <div class="space-y-0">
+                                        <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-lg font-bold text-gray-900">₩450,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.7 (423)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer"
+                            onclick="location.href='../products/electronics/wireless-earbuds.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/wireless-charger.jpg" alt="무선 충전기"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">SALE</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">무선 충전기</h3>
+                                    <div class="space-y-0">
+                                        <div class="text-sm text-gray-400 line-through">₩120,000</div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-sm font-bold text-orange-500">26%</span>
+                                            <span class="text-lg font-bold text-gray-900">₩89,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.1 (298)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer" onclick="location.href='../products/electronics/tablet.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/gaming-laptop.jpg" alt="게이밍 노트북"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded">GAMING</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">게이밍 노트북</h3>
+                                    <div class="space-y-0">
+                                        <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-lg font-bold text-gray-900">₩1,890,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.4 (187)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer"
+                            onclick="location.href='../products/electronics/smartphone.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="../assets/electronics/bluetooth-speaker.jpg" alt="블루투스 스피커"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-indigo-500 text-white text-xs font-bold rounded">PREMIUM</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">블루투스 스피커</h3>
+                                    <div class="space-y-0">
+                                        <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-lg font-bold text-gray-900">₩129,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.2 (234)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group cursor-pointer"
+                            onclick="location.href='../products/electronics/wireless-earbuds.html'">
+                            <div
+                                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                                <!-- 상품 이미지 -->
+                                <div
+                                    class="relative h-56 bg-gradient-to-br from-yellow-400 to-orange-500 overflow-hidden">
+                                    <img src="../assets/electronics/4kwebcam.jpg" alt="4k 웹캠"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute top-3 left-3">
+                                        <span
+                                            class="px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded">TREND</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000">
+                                    </div>
+                                </div>
+
+                                <!-- 장바구니 버튼 -->
+                                <div class="px-3 py-1.5 border-b border-gray-100">
+                                    <button
+                                        class="w-full flex items-center justify-center space-x-1 py-1 text-gray-600 hover:text-primary-600 transition-colors">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0h15M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="text-xs font-medium">담기</span>
+                                    </button>
+                                </div>
+
+                                <!-- 상품 정보 -->
+                                <div class="p-4 h-30">
+                                    <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">4K 웹캠</h3>
+                                    <div class="space-y-0">
+                                        <div class="h-4"></div> <!-- 할인가 자리 (빈 공간) -->
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-lg font-bold text-gray-900">₩219,000</span>
+                                        </div>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <svg class="w-3 h-3 mr-1 text-yellow-400" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.3 (156)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 페이지네이션 -->
+                    <div class="pagination">
+                        <button class="page-btn prev" disabled>이전</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">5</button>
+                        <span class="page-dots">...</span>
+                        <button class="page-btn">22</button>
+                        <button class="page-btn next">다음</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>고객센터</h4>
+                    <p>1588-0000</p>
+                    <p>평일 09:00-18:00</p>
+                </div>
+                <div class="footer-section">
+                    <h4>회사정보</h4>
+                    <p>CatShop Inc.</p>
+                    <p>서울시 강남구</p>
+                </div>
+                <div class="footer-section">
+                    <h4>이용약관</h4>
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CatShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
+<script>
+    // 검색 기능 구현
+    document.addEventListener('DOMContentLoaded', function() {
+        // 검색 버튼 클릭 시 검색 실행
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const searchInput = document.getElementById('searchInput').value.trim();
+            if (searchInput) {
+                window.location.href = `../search.html?q=${encodeURIComponent(searchInput)}`;
+            }
+        });
+
+        // 엔터키 검색 기능
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchInput = document.getElementById('searchInput').value.trim();
+                if (searchInput) {
+                    window.location.href = `../search.html?q=${encodeURIComponent(searchInput)}`;
+                }
+            }
+        });
+    });
+</script>
