@@ -1,9 +1,155 @@
 // 전역 변수
 let cartCount = 0;
 let cartItems = [];
+let currentUser = null;
+
+// 로그인 관련 함수들
+// 로그인 모달 열기
+function openLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+// 로그인 모달 닫기
+function closeLoginModal() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// 소셜 로그인
+function socialLogin(provider) {
+    let userName = '';
+    let userEmail = '';
+    
+    switch(provider) {
+        case 'google':
+            userName = '구글 사용자';
+            userEmail = 'user@gmail.com';
+            break;
+        case 'kakao':
+            userName = '카카오 사용자';
+            userEmail = 'user@kakao.com';
+            break;
+        case 'naver':
+            userName = '네이버 사용자';
+            userEmail = 'user@naver.com';
+            break;
+    }
+    
+    // 로그인 처리
+    loginSuccess(userName, userEmail, provider);
+}
+
+// 이메일 로그인
+function emailLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    // 간단한 유효성 검사 (실제로는 서버에서 처리)
+    if (email && password) {
+        // 이메일에서 사용자명 추출
+        const userName = email.split('@')[0];
+        loginSuccess(userName, email, 'email');
+    } else {
+        alert('이메일과 비밀번호를 입력해주세요.');
+    }
+}
+
+// 로그인 성공 처리
+function loginSuccess(userName, userEmail, provider) {
+    // 고정 UUID 생성
+    const uuid = 'user-12345-abcde-67890-fghij';
+    
+    // 사용자 정보 저장
+    currentUser = {
+        name: userName,
+        email: userEmail,
+        provider: provider,
+        uuid: uuid,
+        loginTime: new Date().toISOString()
+    };
+    
+    // 로컬 스토리지에 저장
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    // UI 업데이트
+    updateLoginUI();
+    
+    // 모달 닫기
+    closeLoginModal();
+    
+    // 성공 메시지
+    showLoginMessage(`${provider === 'email' ? '이메일' : provider}로 로그인되었습니다!`);
+}
+
+// 로그인 UI 업데이트
+function updateLoginUI() {
+    const loginBtn = document.querySelector('.login-btn');
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    
+    if (currentUser) {
+        loginBtn.style.display = 'none';
+        userInfo.style.display = 'flex';
+        userName.textContent = currentUser.name;
+    } else {
+        loginBtn.style.display = 'block';
+        userInfo.style.display = 'none';
+    }
+}
+
+// 로그아웃
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateLoginUI();
+    showLoginMessage('로그아웃되었습니다.');
+}
+
+// 로그인 메시지 표시
+function showLoginMessage(message) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'login-message';
+    messageDiv.textContent = message;
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #27ae60;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        z-index: 10001;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        animation: slideInRight 0.3s ease;
+    `;
+    document.body.appendChild(messageDiv);
+    
+    setTimeout(() => {
+        messageDiv.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 300);
+    }, 3000);
+}
+
+// 페이지 로드 시 로그인 상태 확인
+function checkLoginStatus() {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateLoginUI();
+    }
+}
 
 // DOM 로드 완료 후 실행
 document.addEventListener('DOMContentLoaded', function () {
+    // 로그인 상태 확인
+    checkLoginStatus();
+    
     initializeCart();
     initializeProductTabs();
     initializeQuantityControls();
@@ -251,7 +397,7 @@ function getProductImagePath() {
     // 현재 페이지 URL에서 파일명 추출
     const currentPath = window.location.pathname;
     const fileName = currentPath.split('/').pop().replace('.html', '');
-    
+
     // 카테고리별 이미지 경로 생성
     if (currentPath.includes('/products/beauty/')) {
         return `assets/beauty/${fileName}.jpg`;
@@ -265,9 +411,9 @@ function getProductImagePath() {
         return `assets/home-living/${fileName}.jpg`;
     } else {
         // 기존 방식으로 폴백
-        return document.querySelector('.product-image img')?.src || 
-               document.querySelector('.product-images img')?.src || 
-               'assets/placeholder.svg';
+        return document.querySelector('.product-image img')?.src ||
+            document.querySelector('.product-images img')?.src ||
+            'assets/placeholder.svg';
     }
 }
 
@@ -278,7 +424,7 @@ function addToCart() {
     const quantity = parseInt(document.querySelector('.product-info-detail .qty-input')?.value || 1);
     const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color') || 'default';
     const selectedSize = document.querySelector('.size-select')?.value || 'M';
-    
+
     // 상품 이미지 정보 추가
     const productImage = getProductImagePath();
 
@@ -332,7 +478,7 @@ function buyNow() {
     const productName = document.querySelector('.product-info-detail h1')?.textContent || '상품';
     const productPrice = document.querySelector('.current-price')?.textContent || '₩0';
     const quantity = parseInt(document.querySelector('.product-info-detail .qty-input')?.value || 1);
-    
+
     // 상품 이미지 정보 추가 - 공통 함수 사용
     const productImage = getProductImagePath();
 

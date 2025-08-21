@@ -26,7 +26,11 @@
                     <button>검색</button>
                 </div>
                 <div class="header-actions">
-                    <a href="#" class="login-btn">로그인</a>
+                    <button class="login-btn" onclick="openLoginModal()">로그인</button>
+                    <div class="user-info" id="userInfo" style="display: none;">
+                        <span class="user-name" id="userName">사용자</span>
+                        <button class="logout-btn" onclick="logout()">로그아웃</button>
+                    </div>
                     <a href="cart.html" class="cart-btn active">장바구니 <span class="cart-count">3</span></a>
                 </div>
             </div>
@@ -215,6 +219,51 @@
             </div>
         </div>
     </footer>
+
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="login-modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeLoginModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>로그인</h2>
+                <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- 소셜 로그인 버튼들 -->
+                <div class="social-login-section">
+                    <button class="social-login-btn google-login" onclick="socialLogin('google')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwLjIgOC4xVjEySDEzLjlDMTMuNyAxMy4xIDEzLjEgMTMuOSAxMi4yIDE0LjNMMTUuMSAxNi42QzE3IDE0LjkgMTggMTIuNiAxOCAxMEMxOCA5LjQgMTcuOSA4LjggMTcuOCA4LjFIMTAuMloiIGZpbGw9IiM0Mjg1RjQiLz4KPHBhdGggZD0iTTEwIDIwQzEyLjcgMjAgMTQuOSAxOS4xIDE2LjYgMTcuM0wxMy43IDE1QzEyLjggMTUuNiAxMS41IDE2IDEwIDE2QzcuNiAxNiA1LjYgMTQuNCA0LjkgMTIuMkwxLjkgMTQuNUM0IDEyLjggNi44IDIwIDEwIDIwWiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNNC45IDEyLjJDNC42IDExLjQgNC42IDEwLjYgNC45IDkuOEwxLjkgNy41QzEgOS4yIDEgMTIuOCAxLjkgMTQuNUw0LjkgMTIuMloiIGZpbGw9IiNGQkJDMDQiLz4KPHBhdGggZD0iTTEwIDRDMTEuNiA0IDEzIDQuNiAxNC4xIDUuNkwxNi44IDIuOUMxNC45IDEuMiAxMi43IDAgMTAgMEM2LjggMCA0IDIuOCAxLjkgNy41TDQuOSA5LjhDNS42IDcuNiA3LjYgNiAxMCA2WiIgZmlsbD0iI0VBNDMzNSIvPgo8L3N2Zz4K" alt="Google">
+                        구글로 로그인
+                    </button>
+                    <button class="social-login-btn kakao-login" onclick="socialLogin('kakao')">
+                        <div class="kakao-icon">K</div>
+                        카카오로 로그인
+                    </button>
+                    <button class="social-login-btn naver-login" onclick="socialLogin('naver')">
+                        <div class="naver-icon">N</div>
+                        네이버로 로그인
+                    </button>
+                </div>
+                <div class="divider">
+                    <span>또는</span>
+                </div>
+                <!-- 이메일 로그인 폼 -->
+                <div class="email-login-section">
+                    <form id="emailLoginForm" onsubmit="emailLogin(event)">
+                        <div class="input-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                        </div>
+                        <button type="submit" class="email-login-btn">이메일로 로그인</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
